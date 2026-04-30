@@ -1,18 +1,18 @@
-// Get works from API
+// Récupération des travaux depuis l'API
 async function getWorks() {
   const response = await fetch("http://localhost:5678/api/works");
   const works = await response.json();
   return works;
 }
 
-// Get categories from API
+// Récupération des catégories depuis l'API
 async function getCategories() {
   const response = await fetch("http://localhost:5678/api/categories");
   const categories = await response.json();
   return categories;
 }
 
-// Display works in gallery
+// Affichage des travaux dans la galerie
 function displayWorks(works) {
   const gallery = document.querySelector(".gallery");
   gallery.innerHTML = "";
@@ -32,12 +32,12 @@ function displayWorks(works) {
   });
 }
 
-// Display filters
+// Affichage des filtres par catégorie
 function displayFilters(categories, works) {
   const filters = document.getElementById("filters");
   filters.innerHTML = "";
 
-  // "All" button
+  // Bouton "Tous"
   const allBtn = document.createElement("li");
   allBtn.textContent = "Tous";
   allBtn.classList.add("active-filter");
@@ -50,7 +50,7 @@ function displayFilters(categories, works) {
   });
   filters.appendChild(allBtn);
 
-  // Category buttons
+  // Boutons par catégorie
   categories.forEach((category) => {
     const li = document.createElement("li");
     li.textContent = category.name;
@@ -66,12 +66,22 @@ function displayFilters(categories, works) {
   });
 }
 
-// Init
+// Vérification du mode administrateur
+function checkAdmin() {
+  const token = localStorage.getItem("token");
+  const editBar = document.getElementById("edit-bar");
+  if (token) {
+    editBar.style.display = "block";
+  }
+}
+
+// Initialisation
 async function init() {
   const works = await getWorks();
   const categories = await getCategories();
   displayWorks(works);
   displayFilters(categories, works);
+  checkAdmin();
 }
 
 init();

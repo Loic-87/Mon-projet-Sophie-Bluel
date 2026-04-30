@@ -293,3 +293,11 @@ footer nav ul {
   background-color: #1d6154;
   color: white;
 }
+
+#edit-bar {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+}

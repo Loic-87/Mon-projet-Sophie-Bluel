@@ -265,6 +265,7 @@ footer nav ul {
 
 /****  Ajouts ****/
 
+/* Conteneur des filtres */
 #filters {
   display: flex;
   list-style: none;
@@ -274,6 +275,7 @@ footer nav ul {
   justify-content: center;
 }
 
+/* Style des boutons de filtre */
 #filters li {
   cursor: pointer;
   padding: 10px 20px;
@@ -284,20 +286,212 @@ footer nav ul {
   transition: 0.3s;
 }
 
+/* Survol des boutons de filtre */
 #filters li:hover {
   background-color: #1d6154;
   color: white;
 }
 
+/* Filtre actif */
 #filters li.active-filter {
   background-color: #1d6154;
   color: white;
 }
 
+/* Barre mode édition admin */
 #edit-bar {
   background-color: black;
   color: white;
   text-align: center;
   padding: 10px;
   width: 100%;
+}
+
+/* Titre de la section portfolio */
+#portfolio h2 {
+  position: relative;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+/* Bouton modifier en mode admin */
+#edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+  left: calc(50% + 140px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Fond sombre de la modal */
+#modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Contenu de la modal */
+#modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Bouton de fermeture de la modal */
+#close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Galerie dans la modal */
+#modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+/* Image dans la galerie de la modal */
+#modal-gallery img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+}
+
+/* Bouton de fermeture de la modal */
+#close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+  background: white;
+  padding: 5px;
+}
+
+/* Bouton de suppression d'un travail */
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  z-index: 1;
+}
+
+/* Bouton d'ajout d'un travail */
+#add-work-btn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 30px;
+  background-color: #1d6154;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: "Syne";
+  font-weight: 700;
+}
+
+/* Vue formulaire ajout */
+#modal-view-form h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
+/* Zone upload */
+#upload-zone {
+  background-color: #f0f4f8;
+  border-radius: 5px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+#upload-zone i {
+  font-size: 50px;
+  color: #b0b8c1;
+  display: block;
+  margin-bottom: 15px;
+}
+
+#upload-zone label {
+  background-color: #d3dce6;
+  padding: 8px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+#upload-zone p {
+  color: #888;
+  font-size: 12px;
+}
+
+/* Champs du formulaire */
+#add-work-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+#add-work-form input[type="text"],
+#add-work-form select {
+  width: 100%;
+  height: 50px;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  margin-bottom: 20px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* Bouton valider */
+#add-work-form input[type="submit"] {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 30px;
+  background-color: #888;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: "Syne";
+  font-weight: 700;
+  width: 180px;
 }

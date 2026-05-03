@@ -82,6 +82,14 @@ function checkAdmin() {
       window.location.href = "index.html";
     });
   }
+  // Cacher les filtres en mode admin
+  const filters = document.getElementById("filters");
+  if (token) {
+    editBar.style.display = "block";
+    editBtn.style.display = "block";
+    filters.style.display = "none";
+    // ...
+  }
 }
 
 // Initialisation
@@ -215,7 +223,7 @@ function setupAddWorkForm(works) {
       reader.onload = (e) => {
         previewImage.src = e.target.result;
         previewImage.style.display = "block";
-        uploadLabel.style.display = "none";
+        document.getElementById("upload-zone").style.display = "none";
       };
       reader.readAsDataURL(file);
     }

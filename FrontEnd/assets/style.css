@@ -305,7 +305,11 @@ footer nav ul {
   color: white;
   text-align: center;
   padding: 10px;
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
 }
 
 /* Titre de la section portfolio */
@@ -583,7 +587,6 @@ header nav img {
   margin-bottom: 10px;
 }
 
-/* Footer fixe en bas de page */
 /* Footer en bas de page */
 footer {
   text-align: right;

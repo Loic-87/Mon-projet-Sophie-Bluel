@@ -563,6 +563,10 @@ nav a {
   color: inherit;
 }
 
+#login-nav:hover {
+  cursor: pointer;
+}
+
 /* Lien mot de passe oublié */
 #forgot-password {
   text-align: center;

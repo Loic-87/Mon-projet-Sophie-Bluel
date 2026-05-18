@@ -326,7 +326,7 @@ footer nav ul {
   cursor: pointer;
   font-size: 14px;
   position: absolute;
-  left: calc(50% + 140px);
+  left: calc(50% + 120px);
   top: 50%;
   transform: translateY(-50%);
 }

@@ -9,15 +9,16 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
-	<meta name="description" content="">
+	<meta name="description" content="Portfolio de Sophie Bluel, architecte d'intérieur">
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
 	<div id="edit-bar" style="display:none;">
-		<p><i class="fa-regular fa-pen-to-square"></i> Mode édition</p>
+		<p><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Mode édition</p>
 	</div>
+
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
@@ -29,10 +30,11 @@
 			</ul>
 		</nav>
 	</header>
+
 	<main>
 		<section id="introduction">
 			<figure>
-				<img src="./assets/images/sophie-bluel.png" alt="">
+				<img src="./assets/images/sophie-bluel.png" alt="Portrait de Sophie Bluel">
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
@@ -45,15 +47,17 @@
 					décorateur(trice)</p>
 			</article>
 		</section>
+
 		<section id="portfolio">
 			<h2>Mes Projets <button id="edit-btn" style="display:none;">
-					<i class="fa-regular fa-pen-to-square"></i> modifier
+					<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> modifier
 				</button></h2>
 			<nav>
 				<ul id="filters"></ul>
 			</nav>
 			<div class="gallery"></div>
 		</section>
+
 		<section id="contact">
 			<h2>Contact</h2>
 			<p>Vous avez un projet ? Discutons-en !</p>
@@ -67,44 +71,44 @@
 				<input type="submit" value="Envoyer">
 			</form>
 		</section>
-	</main>
 
-	<div id="modal" style="display:none;">
-		<div id="modal-content">
-			<span id="close-modal">&times;</span>
+		<div id="modal" style="display:none;" role="dialog" aria-modal="true" aria-label="Gestion des projets">
+			<div id="modal-content">
+				<button id="close-modal" aria-label="Fermer la modal">&times;</button>
 
-			<!-- Vue 1 : galerie -->
-			<div id="modal-view-gallery">
-				<h3>Galerie photo</h3>
-				<div id="modal-gallery"></div>
-				<hr>
-				<button id="add-work-btn">Ajouter une photo</button>
-			</div>
+				<!-- Vue 1 : galerie -->
+				<div id="modal-view-gallery">
+					<h3>Galerie photo</h3>
+					<div id="modal-gallery"></div>
+					<hr>
+					<button id="add-work-btn">Ajouter une photo</button>
+				</div>
 
-			<!-- Vue 2 : formulaire ajout -->
-			<div id="modal-view-form" style="display:none;">
-				<button id="back-btn">&#8592;</button>
-				<h3>Ajout photo</h3>
-				<form id="add-work-form">
-					<div id="upload-zone">
-						<i class="fa-regular fa-image"></i>
-						<label for="work-image">+ Ajouter photo</label>
-						<input type="file" id="work-image" accept="image/*" style="display:none;">
-						<p>jpg, png : 4mo max</p>
-					</div>
-					<img id="preview-image" style="display:none;" />
-					<label for="work-title">Titre</label>
-					<input type="text" id="work-title" required>
-					<label for="work-category">Catégorie</label>
-					<select id="work-category" required></select>
-					<input type="submit" value="Valider">
-				</form>
+				<!-- Vue 2 : formulaire ajout -->
+				<div id="modal-view-form" style="display:none;">
+					<button id="back-btn" aria-label="Retour à la galerie">&#8592;</button>
+					<h3>Ajout photo</h3>
+					<form id="add-work-form">
+						<div id="upload-zone">
+							<i class="fa-regular fa-image" aria-hidden="true"></i>
+							<label for="work-image">+ Ajouter photo</label>
+							<input type="file" id="work-image" accept="image/*" style="display:none;">
+							<p>jpg, png : 4mo max</p>
+						</div>
+						<img id="preview-image" style="display:none;" alt="Prévisualisation de l'image" />
+						<label for="work-title">Titre</label>
+						<input type="text" id="work-title" required>
+						<label for="work-category">Catégorie</label>
+						<select id="work-category" required></select>
+						<input type="submit" value="Valider">
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
+	</main>
 
 	<footer>
-		<nav>
+		<nav aria-label="Mentions légales">
 			<ul>
 				<li>Mentions légales</li>
 			</ul>

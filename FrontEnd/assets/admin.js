@@ -1,9 +1,9 @@
 export function checkAdmin() {
   const token = localStorage.getItem("token");
-  const editBar = document.getElementById("edit-bar");
-  const editBtn = document.getElementById("edit-btn");
-  const loginBtn = document.getElementById("login-nav");
-  const filters = document.getElementById("filters");
+  const editBar = document.querySelector(".edit-bar");
+  const editBtn = document.querySelector(".edit-btn");
+  const loginBtn = document.querySelector(".login-nav");
+  const filters = document.querySelector(".filters");
 
   if (token) {
     editBar.style.display = "block";

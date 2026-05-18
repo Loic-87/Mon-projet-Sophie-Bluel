@@ -1,10 +1,10 @@
-const form = document.getElementById("login-form");
+const form = document.querySelector(".login-form");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = document.querySelector("#email").value;
+  const password = document.querySelector("#password").value;
 
   const response = await fetch("http://localhost:5678/api/users/login", {
     method: "POST",

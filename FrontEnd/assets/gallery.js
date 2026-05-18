@@ -20,7 +20,7 @@ export function displayWorks(works) {
 
 // Affichage des filtres par catégorie
 export function displayFilters(categories, works) {
-  const filters = document.getElementById("filters");
+  const filters = document.querySelector(".filters");
   filters.innerHTML = "";
 
   // Bouton "Tous"
@@ -30,7 +30,7 @@ export function displayFilters(categories, works) {
   allBtn.addEventListener("click", () => {
     displayWorks(works);
     document
-      .querySelectorAll("#filters li")
+      .querySelectorAll(".filters li")
       .forEach((li) => li.classList.remove("active-filter"));
     allBtn.classList.add("active-filter");
   });
@@ -44,7 +44,7 @@ export function displayFilters(categories, works) {
       const filteredWorks = works.filter((w) => w.categoryId === category.id);
       displayWorks(filteredWorks);
       document
-        .querySelectorAll("#filters li")
+        .querySelectorAll(".filters li")
         .forEach((el) => el.classList.remove("active-filter"));
       li.classList.add("active-filter");
     });

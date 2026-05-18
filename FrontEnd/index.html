@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	<div id="edit-bar" style="display:none;">
+	<div class="edit-bar" style="display:none;">
 		<p><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Mode édition</p>
 	</div>
 
@@ -25,14 +25,14 @@
 			<ul>
 				<li><a href="#portfolio">projets</a></li>
 				<li><a href="#contact">contact</a></li>
-				<li id="login-nav"><a href="./login.html">login</a></li>
+				<li class="login-nav"><a href="./login.html">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
 	</header>
 
 	<main>
-		<section id="introduction">
+		<section class="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="Portrait de Sophie Bluel">
 			</figure>
@@ -48,17 +48,17 @@
 			</article>
 		</section>
 
-		<section id="portfolio">
-			<h2>Mes Projets <button id="edit-btn" style="display:none;">
+		<section class="portfolio">
+			<h2>Mes Projets <button class="edit-btn" style="display:none;">
 					<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> modifier
 				</button></h2>
 			<nav>
-				<ul id="filters"></ul>
+				<ul class="filters"></ul>
 			</nav>
 			<div class="gallery"></div>
 		</section>
 
-		<section id="contact">
+		<section class="contact">
 			<h2>Contact</h2>
 			<p>Vous avez un projet ? Discutons-en !</p>
 			<form action="#" method="post">
@@ -72,30 +72,30 @@
 			</form>
 		</section>
 
-		<div id="modal" style="display:none;" role="dialog" aria-modal="true" aria-label="Gestion des projets">
-			<div id="modal-content">
-				<button id="close-modal" aria-label="Fermer la modal">&times;</button>
+		<div class="modal" style="display:none;" role="dialog" aria-modal="true" aria-label="Gestion des projets">
+			<div class="modal-content">
+				<button class="close-modal" aria-label="Fermer la modal">&times;</button>
 
 				<!-- Vue 1 : galerie -->
-				<div id="modal-view-gallery">
+				<div class="modal-view-gallery">
 					<h3>Galerie photo</h3>
-					<div id="modal-gallery"></div>
+					<div class="modal-gallery"></div>
 					<hr>
-					<button id="add-work-btn">Ajouter une photo</button>
+					<button class="add-work-btn">Ajouter une photo</button>
 				</div>
 
 				<!-- Vue 2 : formulaire ajout -->
-				<div id="modal-view-form" style="display:none;">
-					<button id="back-btn" aria-label="Retour à la galerie">&#8592;</button>
+				<div class="modal-view-form" style="display:none;">
+					<button class="back-btn" aria-label="Retour à la galerie">&#8592;</button>
 					<h3>Ajout photo</h3>
-					<form id="add-work-form">
-						<div id="upload-zone">
+					<form class="add-work-form">
+						<div class="upload-zone">
 							<i class="fa-regular fa-image" aria-hidden="true"></i>
 							<label for="work-image">+ Ajouter photo</label>
 							<input type="file" id="work-image" accept="image/*" style="display:none;">
 							<p>jpg, png : 4mo max</p>
 						</div>
-						<img id="preview-image" style="display:none;" alt="Prévisualisation de l'image" />
+						<img class="preview-image" style="display:none;" alt="Prévisualisation de l'image" />
 						<label for="work-title">Titre</label>
 						<input type="text" id="work-title" required>
 						<label for="work-category">Catégorie</label>

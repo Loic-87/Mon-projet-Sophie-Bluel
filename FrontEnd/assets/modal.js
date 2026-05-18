@@ -3,7 +3,7 @@ import { displayWorks } from "./gallery.js";
 
 // Affichage des travaux dans la modal
 export function displayModalGallery(works) {
-  const modalGallery = document.getElementById("modal-gallery");
+  const modalGallery = document.querySelector(".modal-gallery");
   modalGallery.innerHTML = "";
 
   works.forEach((work) => {
@@ -48,13 +48,13 @@ async function deleteWork(id, works) {
 
 // Ouverture et fermeture de la modal
 export function setupModal(works) {
-  const editBtn = document.getElementById("edit-btn");
-  const modal = document.getElementById("modal");
-  const closeModal = document.getElementById("close-modal");
-  const addWorkBtn = document.getElementById("add-work-btn");
-  const backBtn = document.getElementById("back-btn");
-  const viewGallery = document.getElementById("modal-view-gallery");
-  const viewForm = document.getElementById("modal-view-form");
+  const editBtn = document.querySelector(".edit-btn");
+  const modal = document.querySelector(".modal");
+  const closeModal = document.querySelector(".close-modal");
+  const addWorkBtn = document.querySelector(".add-work-btn");
+  const backBtn = document.querySelector(".back-btn");
+  const viewGallery = document.querySelector(".modal-view-gallery");
+  const viewForm = document.querySelector(".modal-view-form");
 
   // Ouvrir la modal au clic sur "modifier"
   editBtn.addEventListener("click", () => {

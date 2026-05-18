@@ -177,30 +177,31 @@ nav li {
 li:hover {
   color: #b1663c;
 }
-#introduction {
+.introduction {
   display: flex;
   align-items: center;
 }
-#introduction figure {
+.introduction figure {
   flex: 1;
 }
-#introduction img {
+.introduction img {
   display: block;
   margin: auto;
   width: 80%;
 }
 
-#introduction article {
+.introduction article {
   flex: 1;
 }
-#introduction h2 {
+.introduction h2 {
   margin-bottom: 1em;
 }
 
-#introduction p {
+.introduction p {
   margin-bottom: 0.5em;
 }
-#portfolio h2 {
+.portfolio h2 {
+  position: relative;
   text-align: center;
   margin-bottom: 1em;
 }
@@ -215,33 +216,33 @@ li:hover {
 .gallery img {
   width: 100%;
 }
-#contact {
+.contact {
   width: 50%;
   margin: auto;
 }
-#contact > * {
+.contact > * {
   text-align: center;
 }
-#contact h2 {
+.contact h2 {
   margin-bottom: 20px;
 }
-#contact form {
+.contact form {
   text-align: left;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
 }
 
-#contact input {
+.contact input {
   height: 50px;
   font-size: 1.2em;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+.contact label {
   margin: 2em 0 1em 0;
 }
-#contact textarea {
+.contact textarea {
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
   max-width: 565px;
@@ -267,7 +268,7 @@ footer nav ul {
 /****  Ajouts ****/
 
 /* Conteneur des filtres */
-#filters {
+.filters {
   display: flex;
   list-style: none;
   gap: 15px;
@@ -277,7 +278,7 @@ footer nav ul {
 }
 
 /* Style des boutons de filtre */
-#filters li {
+.filters li {
   cursor: pointer;
   padding: 10px 20px;
   border: 1px solid #1d6154;
@@ -288,19 +289,19 @@ footer nav ul {
 }
 
 /* Survol des boutons de filtre */
-#filters li:hover {
+.filters li:hover {
   background-color: #1d6154;
   color: white;
 }
 
 /* Filtre actif */
-#filters li.active-filter {
+.filters li.active-filter {
   background-color: #1d6154;
   color: white;
 }
 
 /* Barre mode édition admin */
-#edit-bar {
+.edit-bar {
   background-color: black;
   color: white;
   text-align: center;
@@ -312,15 +313,8 @@ footer nav ul {
   box-sizing: border-box;
 }
 
-/* Titre de la section portfolio */
-#portfolio h2 {
-  position: relative;
-  text-align: center;
-  margin-bottom: 1em;
-}
-
 /* Bouton modifier en mode admin */
-#edit-btn {
+.edit-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -332,7 +326,7 @@ footer nav ul {
 }
 
 /* Fond sombre de la modal */
-#modal {
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -346,7 +340,7 @@ footer nav ul {
 }
 
 /* Contenu de la modal */
-#modal-content {
+.modal-content {
   background-color: white;
   padding: 30px;
   border-radius: 10px;
@@ -357,31 +351,7 @@ footer nav ul {
 }
 
 /* Bouton de fermeture de la modal */
-#close-modal {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* Galerie dans la modal */
-#modal-gallery {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  margin: 20px 0;
-}
-
-/* Image dans la galerie de la modal */
-#modal-gallery img {
-  width: 100%;
-  height: 80px;
-  object-fit: cover;
-}
-
-/* Bouton de fermeture de la modal */
-#close-modal {
+.close-modal {
   position: absolute;
   top: 15px;
   right: 20px;
@@ -389,7 +359,23 @@ footer nav ul {
   cursor: pointer;
   z-index: 1000;
   background: white;
+  border: none;
   padding: 5px;
+}
+
+/* Galerie dans la modal */
+.modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+/* Image dans la galerie de la modal */
+.modal-gallery img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
 }
 
 /* Bouton de suppression d'un travail */
@@ -408,7 +394,7 @@ footer nav ul {
 }
 
 /* Bouton d'ajout d'un travail */
-#add-work-btn {
+.add-work-btn {
   display: block;
   margin: 20px auto 0;
   padding: 10px 30px;
@@ -422,12 +408,12 @@ footer nav ul {
 }
 
 /* Vue formulaire ajout */
-#modal-view-form h3 {
+.modal-view-form h3 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-#back-btn {
+.back-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -438,7 +424,7 @@ footer nav ul {
 }
 
 /* Zone upload */
-#upload-zone {
+.upload-zone {
   background-color: #f0f4f8;
   border-radius: 5px;
   padding: 30px;
@@ -447,14 +433,14 @@ footer nav ul {
   cursor: pointer;
 }
 
-#upload-zone i {
+.upload-zone i {
   font-size: 50px;
   color: #b0b8c1;
   display: block;
   margin-bottom: 15px;
 }
 
-#upload-zone label {
+.upload-zone label {
   background-color: #d3dce6;
   padding: 8px 20px;
   border-radius: 50px;
@@ -463,20 +449,20 @@ footer nav ul {
   margin-bottom: 10px;
 }
 
-#upload-zone p {
+.upload-zone p {
   color: #888;
   font-size: 12px;
 }
 
 /* Champs du formulaire */
-#add-work-form label {
+.add-work-form label {
   display: block;
   margin-bottom: 5px;
   font-weight: 500;
 }
 
-#add-work-form input[type="text"],
-#add-work-form select {
+.add-work-form input[type="text"],
+.add-work-form select {
   width: 100%;
   height: 50px;
   border: none;
@@ -487,7 +473,7 @@ footer nav ul {
 }
 
 /* Bouton valider */
-#add-work-form input[type="submit"] {
+.add-work-form input[type="submit"] {
   display: block;
   margin: 20px auto 0;
   padding: 10px 30px;
@@ -502,34 +488,34 @@ footer nav ul {
 }
 
 /* Page login - centrage du formulaire */
-#login {
+.login {
   width: 400px;
   margin: 50px auto;
   text-align: center;
 }
 
 /* Titre de la page login */
-#login h2 {
+.login h2 {
   margin-bottom: 30px;
 }
 
 /* Formulaire en colonne */
-#login-form {
+.login-form {
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
 /* Labels du formulaire */
-#login-form label {
+.login-form label {
   margin-bottom: 5px;
   font-size: 12px;
   color: #888;
 }
 
 /* Champs email et mot de passe */
-#login-form input[type="email"],
-#login-form input[type="password"] {
+.login-form input[type="email"],
+.login-form input[type="password"] {
   height: 40px;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -538,7 +524,7 @@ footer nav ul {
 }
 
 /* Bouton Se connecter */
-#login-form input[type="submit"] {
+.login-form input[type="submit"] {
   background-color: #1d6154;
   color: white;
   border: none;
@@ -558,17 +544,17 @@ nav a {
 }
 
 /* Lien login dans le header */
-#login-nav a {
+.login-nav a {
   text-decoration: none;
   color: inherit;
 }
 
-#login-nav:hover {
+.login-nav:hover {
   cursor: pointer;
 }
 
 /* Lien mot de passe oublié */
-#forgot-password {
+.forgot-password {
   text-align: center;
   margin-top: 10px;
   color: #1d6154;
@@ -576,14 +562,14 @@ nav a {
   text-decoration: underline;
 }
 
-/* Logo Instagram dans le header du login */
+/* Logo Instagram dans le header */
 header nav img {
   width: 20px;
   height: 20px;
 }
 
 /* Prévisualisation de l'image */
-#preview-image {
+.preview-image {
   width: 100%;
   height: 200px;
   object-fit: cover;

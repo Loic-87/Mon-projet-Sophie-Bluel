@@ -5,7 +5,7 @@ import { displayModalGallery } from "./modal.js";
 // Remplissage du select des catégories
 export async function fillCategories() {
   const categories = await getCategories();
-  const select = document.getElementById("work-category");
+  const select = document.querySelector("#work-category");
   categories.forEach((category) => {
     const option = document.createElement("option");
     option.value = category.id;
@@ -16,10 +16,10 @@ export async function fillCategories() {
 
 // Envoi du formulaire d'ajout de photo
 export function setupAddWorkForm(works) {
-  const form = document.getElementById("add-work-form");
-  const imageInput = document.getElementById("work-image");
-  const previewImage = document.getElementById("preview-image");
-  const uploadLabel = document.querySelector("#upload-zone label");
+  const form = document.querySelector(".add-work-form");
+  const imageInput = document.querySelector("#work-image");
+  const previewImage = document.querySelector(".preview-image");
+  const uploadLabel = document.querySelector(".upload-zone label");
 
   // Prévisualisation de l'image
   imageInput.addEventListener("change", (e) => {
@@ -29,7 +29,7 @@ export function setupAddWorkForm(works) {
       reader.onload = (e) => {
         previewImage.src = e.target.result;
         previewImage.style.display = "block";
-        document.getElementById("upload-zone").style.display = "none";
+        document.querySelector(".upload-zone").style.display = "none";
       };
       reader.readAsDataURL(file);
     }
@@ -40,8 +40,8 @@ export function setupAddWorkForm(works) {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
-    const title = document.getElementById("work-title").value;
-    const category = document.getElementById("work-category").value;
+    const title = document.querySelector("#work-title").value;
+    const category = document.querySelector("#work-category").value;
     const image = imageInput.files[0];
 
     const formData = new FormData();
@@ -63,8 +63,8 @@ export function setupAddWorkForm(works) {
       displayWorks(works);
       displayModalGallery(works);
       // Retour à la galerie
-      document.getElementById("modal-view-form").style.display = "none";
-      document.getElementById("modal-view-gallery").style.display = "block";
+      document.querySelector(".modal-view-form").style.display = "none";
+      document.querySelector(".modal-view-gallery").style.display = "block";
       // Reset du formulaire
       form.reset();
       previewImage.style.display = "none";

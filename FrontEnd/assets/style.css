@@ -111,11 +111,6 @@ html {
 body {
   line-height: 1;
 }
-.nav-projets:hover,
-.nav-contact:hover,
-.nav-login:hover {
-  cursor: pointer;
-}
 ol,
 ul {
   list-style: none;
@@ -135,22 +130,28 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-/** end reset css**/
+
+/* ===================== BASE ===================== */
 body {
-  max-width: 1140px;
-  margin: 0 auto;
   font-family: "Work Sans";
   font-size: 14px;
+  padding-top: 50px;
 }
+
+/* ===================== MAIN ===================== */
+main {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===================== HEADER ===================== */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 40px 0 50px 0;
-  padding: 0 40px;
-}
-section {
-  margin: 50px 0;
+  margin: 0 0 50px 0;
+  padding: 30px 60px;
 }
 
 h1 {
@@ -168,17 +169,12 @@ h1 > span {
   letter-spacing: 0.1em;
 }
 
-h2 {
-  font-family: "Syne";
-  font-weight: 700;
-  font-size: 30px;
-  color: #1d6154;
-}
 nav ul {
   display: flex;
   align-items: center;
   list-style-type: none;
 }
+
 nav li {
   padding: 0 10px;
   font-size: 16px;
@@ -187,13 +183,53 @@ nav li {
 li:hover {
   color: #b1663c;
 }
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header nav img {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===================== BARRE ADMIN ===================== */
+.edit-bar {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  width: 100vw;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* ===================== SECTIONS ===================== */
+section {
+  margin: 50px 0;
+}
+
+h2 {
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 30px;
+  color: #1d6154;
+}
+
+/* ===================== INTRODUCTION ===================== */
 .introduction {
   display: flex;
   align-items: center;
 }
+
 .introduction figure {
   flex: 1;
 }
+
 .introduction img {
   display: block;
   margin: auto;
@@ -203,6 +239,7 @@ li:hover {
 .introduction article {
   flex: 1;
 }
+
 .introduction h2 {
   margin-bottom: 1em;
 }
@@ -210,11 +247,14 @@ li:hover {
 .introduction p {
   margin-bottom: 0.5em;
 }
+
+/* ===================== PORTFOLIO ===================== */
 .portfolio h2 {
   position: relative;
   text-align: center;
   margin-bottom: 1em;
 }
+
 .gallery {
   width: 100%;
   display: grid;
@@ -226,16 +266,63 @@ li:hover {
 .gallery img {
   width: 100%;
 }
+
+/* ===================== FILTRES ===================== */
+.filters {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+  padding: 0;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.filters li {
+  cursor: pointer;
+  padding: 10px 20px;
+  border: 1px solid #1d6154;
+  border-radius: 50px;
+  color: #1d6154;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.filters li:hover {
+  background-color: #1d6154;
+  color: white;
+}
+
+.filters li.active-filter {
+  background-color: #1d6154;
+  color: white;
+}
+
+/* ===================== BOUTON MODIFIER ===================== */
+.edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+  left: calc(50% + 120px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ===================== CONTACT ===================== */
 .contact {
   width: 50%;
   margin: auto;
 }
+
 .contact > * {
   text-align: center;
 }
+
 .contact h2 {
   margin-bottom: 20px;
 }
+
 .contact form {
   text-align: left;
   margin-top: 30px;
@@ -249,9 +336,11 @@ li:hover {
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+
 .contact label {
   margin: 2em 0 1em 0;
 }
+
 .contact textarea {
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -269,75 +358,7 @@ input[type="submit"] {
   border-radius: 60px;
 }
 
-footer nav ul {
-  display: flex;
-  justify-content: flex-end;
-  margin: 2em;
-}
-
-/****  Ajouts ****/
-
-/* Conteneur des filtres */
-.filters {
-  display: flex;
-  list-style: none;
-  gap: 15px;
-  padding: 0;
-  margin-bottom: 30px;
-  justify-content: center;
-}
-
-/* Style des boutons de filtre */
-.filters li {
-  cursor: pointer;
-  padding: 10px 20px;
-  border: 1px solid #1d6154;
-  border-radius: 50px;
-  color: #1d6154;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-/* Survol des boutons de filtre */
-.filters li:hover {
-  background-color: #1d6154;
-  color: white;
-}
-
-/* Filtre actif */
-.filters li.active-filter {
-  background-color: #1d6154;
-  color: white;
-}
-
-/* Barre mode édition admin */
-.edit-bar {
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  flex: 0 0 100%;
-  margin-bottom: 30px;
-}
-/* Bouton modifier en mode admin */
-.edit-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  position: absolute;
-  left: calc(50% + 120px);
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Fond sombre de la modal */
+/* ===================== MODAL ===================== */
 .modal {
   position: fixed;
   top: 0;
@@ -351,7 +372,6 @@ footer nav ul {
   z-index: 999;
 }
 
-/* Contenu de la modal */
 .modal-content {
   background-color: white;
   padding: 30px;
@@ -362,7 +382,6 @@ footer nav ul {
   position: relative;
 }
 
-/* Bouton de fermeture de la modal */
 .close-modal {
   position: absolute;
   top: 15px;
@@ -375,7 +394,6 @@ footer nav ul {
   padding: 5px;
 }
 
-/* Galerie dans la modal */
 .modal-gallery {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -383,14 +401,12 @@ footer nav ul {
   margin: 20px 0;
 }
 
-/* Image dans la galerie de la modal */
 .modal-gallery img {
   width: 100%;
   height: 80px;
   object-fit: cover;
 }
 
-/* Bouton de suppression d'un travail */
 .delete-btn {
   position: absolute;
   top: 5px;
@@ -405,7 +421,6 @@ footer nav ul {
   z-index: 1;
 }
 
-/* Bouton d'ajout d'un travail */
 .add-work-btn {
   display: block;
   margin: 20px auto 0;
@@ -419,7 +434,6 @@ footer nav ul {
   font-weight: 700;
 }
 
-/* Vue formulaire ajout */
 .modal-view-form h3 {
   text-align: center;
   margin-bottom: 20px;
@@ -435,7 +449,7 @@ footer nav ul {
   left: 20px;
 }
 
-/* Zone upload */
+/* ===================== FORMULAIRE AJOUT ===================== */
 .upload-zone {
   background-color: #f0f4f8;
   border-radius: 5px;
@@ -466,7 +480,6 @@ footer nav ul {
   font-size: 12px;
 }
 
-/* Champs du formulaire */
 .add-work-form label {
   display: block;
   margin-bottom: 5px;
@@ -484,7 +497,6 @@ footer nav ul {
   box-sizing: border-box;
 }
 
-/* Bouton valider */
 .add-work-form input[type="submit"] {
   display: block;
   margin: 20px auto 0;
@@ -499,33 +511,37 @@ footer nav ul {
   width: 180px;
 }
 
-/* Page login - centrage du formulaire */
+.preview-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* ===================== LOGIN ===================== */
 .login {
   width: 400px;
   margin: 50px auto;
   text-align: center;
 }
 
-/* Titre de la page login */
 .login h2 {
   margin-bottom: 30px;
 }
 
-/* Formulaire en colonne */
 .login-form {
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
-/* Labels du formulaire */
 .login-form label {
   margin-bottom: 5px;
   font-size: 12px;
   color: #888;
 }
 
-/* Champs email et mot de passe */
 .login-form input[type="email"],
 .login-form input[type="password"] {
   height: 40px;
@@ -535,7 +551,6 @@ footer nav ul {
   padding: 0 10px;
 }
 
-/* Bouton Se connecter */
 .login-form input[type="submit"] {
   background-color: #1d6154;
   color: white;
@@ -549,13 +564,6 @@ footer nav ul {
   margin: 10px auto;
 }
 
-/* Liens de navigation */
-nav a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Lien login dans le header */
 .login-nav a {
   text-decoration: none;
   color: inherit;
@@ -565,7 +573,6 @@ nav a {
   cursor: pointer;
 }
 
-/* Lien mot de passe oublié */
 .forgot-password {
   text-align: center;
   margin-top: 10px;
@@ -574,22 +581,19 @@ nav a {
   text-decoration: underline;
 }
 
-/* Logo Instagram dans le header */
-header nav img {
-  width: 20px;
-  height: 20px;
+.nav-projets:hover,
+.nav-contact:hover,
+.nav-login:hover {
+  cursor: pointer;
 }
 
-/* Prévisualisation de l'image */
-.preview-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-bottom: 10px;
+/* ===================== FOOTER ===================== */
+footer nav ul {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2em;
 }
 
-/* Footer en bas de page */
 footer {
   text-align: right;
   padding-right: 216px;

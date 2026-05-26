@@ -1,8 +1,11 @@
 import { getWorks } from "./api.js";
 import { displayWorks } from "./gallery.js";
 
+let currentWorks = [];
+
 // Affichage des travaux dans la modal
 export function displayModalGallery(works) {
+  currentWorks = works; // ✅ on met à jour la référence
   const modalGallery = document.querySelector(".modal-gallery");
   modalGallery.innerHTML = "";
 
@@ -18,7 +21,7 @@ export function displayModalGallery(works) {
     deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
     deleteBtn.classList.add("delete-btn");
     deleteBtn.addEventListener("click", async () => {
-      await deleteWork(work.id, works);
+      await deleteWork(work.id);
     });
 
     figure.appendChild(img);
@@ -28,7 +31,7 @@ export function displayModalGallery(works) {
 }
 
 // Suppression d'un travail
-async function deleteWork(id, works) {
+async function deleteWork(id) {
   try {
     const token = localStorage.getItem("token");
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
@@ -53,6 +56,7 @@ async function deleteWork(id, works) {
 
 // Ouverture et fermeture de la modal
 export function setupModal(works) {
+  currentWorks = works; // ✅ initialise la référence
   const editBtn = document.querySelector(".edit-btn");
   const modal = document.querySelector(".modal");
   const closeModal = document.querySelector(".close-modal");
@@ -64,7 +68,7 @@ export function setupModal(works) {
   // Ouvrir la modal au clic sur "modifier"
   editBtn.addEventListener("click", () => {
     modal.style.display = "flex";
-    displayModalGallery(works);
+    displayModalGallery(currentWorks); // ✅ utilise toujours la liste à jour
   });
 
   // Fermer la modal au clic sur la croix
@@ -94,4 +98,8 @@ export function setupModal(works) {
     viewForm.style.display = "none";
     viewGallery.style.display = "block";
   });
+}
+// Retourne la liste des travaux actuellement en mémoire
+export function getCurrentWorks() {
+  return currentWorks;
 }

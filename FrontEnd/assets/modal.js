@@ -29,20 +29,25 @@ export function displayModalGallery(works) {
 
 // Suppression d'un travail
 async function deleteWork(id, works) {
-  const token = localStorage.getItem("token");
-  const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  if (response.ok) {
-    const updatedWorks = await getWorks();
-    displayWorks(updatedWorks);
-    displayModalGallery(updatedWorks);
-  } else {
-    alert("Erreur lors de la suppression");
+    if (response.ok) {
+      const updatedWorks = await getWorks();
+      displayWorks(updatedWorks);
+      displayModalGallery(updatedWorks);
+    } else {
+      alert("Erreur lors de la suppression");
+    }
+  } catch (error) {
+    console.error("deleteWork :", error);
+    alert("Une erreur est survenue lors de la suppression");
   }
 }
 

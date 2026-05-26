@@ -1,53 +1,61 @@
 // Affichage des travaux dans la galerie
 export function displayWorks(works) {
-  const gallery = document.querySelector(".gallery");
-  gallery.innerHTML = "";
+  try {
+    const gallery = document.querySelector(".gallery");
+    gallery.innerHTML = "";
 
-  works.forEach((work) => {
-    const figure = document.createElement("figure");
-    const img = document.createElement("img");
-    const figcaption = document.createElement("figcaption");
+    works.forEach((work) => {
+      const figure = document.createElement("figure");
+      const img = document.createElement("img");
+      const figcaption = document.createElement("figcaption");
 
-    img.src = work.imageUrl;
-    img.alt = work.title;
-    figcaption.textContent = work.title;
+      img.src = work.imageUrl;
+      img.alt = work.title;
+      figcaption.textContent = work.title;
 
-    figure.appendChild(img);
-    figure.appendChild(figcaption);
-    gallery.appendChild(figure);
-  });
+      figure.appendChild(img);
+      figure.appendChild(figcaption);
+      gallery.appendChild(figure);
+    });
+  } catch (error) {
+    console.error("displayWorks :", error);
+  }
 }
 
 // Affichage des filtres par catégorie
 export function displayFilters(categories, works) {
-  const filters = document.querySelector(".filters");
-  filters.innerHTML = "";
+  try {
+    const filters = document.querySelector(".filters");
+    filters.innerHTML = "";
 
-  // Bouton "Tous"
-  const allBtn = document.createElement("li");
-  allBtn.textContent = "Tous";
-  allBtn.classList.add("active-filter");
-  allBtn.addEventListener("click", () => {
-    displayWorks(works);
-    document
-      .querySelectorAll(".filters li")
-      .forEach((li) => li.classList.remove("active-filter"));
+    // Bouton "Tous"
+    const allBtn = document.createElement("li");
+    allBtn.textContent = "Tous";
     allBtn.classList.add("active-filter");
-  });
-  filters.appendChild(allBtn);
-
-  // Boutons par catégorie
-  categories.forEach((category) => {
-    const li = document.createElement("li");
-    li.textContent = category.name;
-    li.addEventListener("click", () => {
-      const filteredWorks = works.filter((w) => w.categoryId === category.id);
-      displayWorks(filteredWorks);
+    allBtn.addEventListener("click", () => {
+      displayWorks(works);
       document
         .querySelectorAll(".filters li")
-        .forEach((el) => el.classList.remove("active-filter"));
-      li.classList.add("active-filter");
+        .forEach((li) => li.classList.remove("active-filter"));
+      allBtn.classList.add("active-filter");
     });
-    filters.appendChild(li);
-  });
+    filters.appendChild(allBtn);
+
+    // Boutons par catégorie
+    categories.forEach((category) => {
+      const li = document.createElement("li");
+      li.textContent = category.name;
+      li.addEventListener("click", () => {
+        const filteredWorks = works.filter((w) => w.categoryId === category.id);
+        displayWorks(filteredWorks);
+        document
+          .querySelectorAll(".filters li")
+          .forEach((el) => el.classList.remove("active-filter"));
+        li.classList.add("active-filter");
+      });
+      filters.appendChild(li);
+    });
+  } catch (error) {
+    console.error("displayFilters :", error);
+  }
 }

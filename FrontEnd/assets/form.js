@@ -1,6 +1,6 @@
 import { getCategories } from "./api.js";
 import { displayWorks } from "./gallery.js";
-import { displayModalGallery } from "./modal.js";
+import { displayModalGallery, getCurrentWorks } from "./modal.js";
 
 // Remplissage du select des catégories
 export async function fillCategories() {
@@ -29,6 +29,17 @@ export function setupAddWorkForm(works) {
   imageInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Vérification de la taille (4mo max)
+      if (file.size > 4 * 1024 * 1024) {
+        alert("L'image ne doit pas dépasser 4mo");
+        imageInput.value = "";
+        return;
+      }
+      // Bouton valider en vert
+      document.querySelector(
+        ".add-work-form input[type='submit']",
+      ).style.backgroundColor = "#1d6154";
+
       const reader = new FileReader();
       reader.onload = (e) => {
         previewImage.src = e.target.result;
@@ -64,9 +75,10 @@ export function setupAddWorkForm(works) {
 
       if (response.ok) {
         const newWork = await response.json();
-        works.push(newWork);
-        displayWorks(works);
-        displayModalGallery(works);
+        const updatedWorks = getCurrentWorks();
+        updatedWorks.push(newWork);
+        displayWorks(updatedWorks);
+        displayModalGallery(updatedWorks);
         // Retour à la galerie
         document.querySelector(".modal-view-form").style.display = "none";
         document.querySelector(".modal-view-gallery").style.display = "block";
@@ -74,6 +86,10 @@ export function setupAddWorkForm(works) {
         form.reset();
         previewImage.style.display = "none";
         uploadLabel.style.display = "inline-block";
+        document.querySelector(".upload-zone").style.display = "block"; // reaffiche la zone upload
+        document.querySelector(
+          ".add-work-form input[type='submit']",
+        ).style.backgroundColor = "#888"; // remet en gris
       } else {
         alert("Erreur lors de l'ajout");
       }

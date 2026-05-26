@@ -1,13 +1,27 @@
 // Récupération des travaux depuis l'API
 export async function getWorks() {
-  const response = await fetch("http://localhost:5678/api/works");
-  const works = await response.json();
-  return works;
+  try {
+    const response = await fetch("http://localhost:5678/api/works");
+    if (!response.ok)
+      throw new Error("Erreur lors de la récupération des travaux");
+    const works = await response.json();
+    return works;
+  } catch (error) {
+    console.error("getWorks :", error);
+    return [];
+  }
 }
 
 // Récupération des catégories depuis l'API
 export async function getCategories() {
-  const response = await fetch("http://localhost:5678/api/categories");
-  const categories = await response.json();
-  return categories;
+  try {
+    const response = await fetch("http://localhost:5678/api/categories");
+    if (!response.ok)
+      throw new Error("Erreur lors de la récupération des catégories");
+    const categories = await response.json();
+    return categories;
+  } catch (error) {
+    console.error("getCategories :", error);
+    return [];
+  }
 }

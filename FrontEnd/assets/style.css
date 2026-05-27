@@ -135,7 +135,6 @@ table {
 body {
   font-family: "Work Sans";
   font-size: 14px;
-  padding-top: 50px;
 }
 
 /* ===================== MAIN ===================== */
@@ -148,10 +147,11 @@ main {
 /* ===================== HEADER ===================== */
 header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin: 0 0 50px 0;
-  padding: 30px 200px;
+  padding: 30px 200px 30px;
 }
 
 h1 {
@@ -200,12 +200,8 @@ header nav img {
   color: white;
   text-align: center;
   padding: 10px;
-  width: 100vw;
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
+  width: calc(100% + 400px);
+  margin: 0 -200px 30px;
 }
 
 /* ===================== SECTIONS ===================== */

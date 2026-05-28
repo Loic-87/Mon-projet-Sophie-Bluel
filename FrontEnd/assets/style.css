@@ -196,6 +196,7 @@ header nav img {
 
 /* ===================== BARRE ADMIN ===================== */
 .edit-bar {
+  display: none;
   background-color: black;
   color: white;
   text-align: center;
@@ -295,6 +296,7 @@ h2 {
 
 /* ===================== BOUTON MODIFIER ===================== */
 .edit-btn {
+  display: none;
   background: none;
   border: none;
   cursor: pointer;
@@ -338,9 +340,9 @@ h2 {
 }
 
 .contact textarea {
+  width: 100%;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-  max-width: 565px;
 }
 
 input[type="submit"] {
@@ -356,13 +358,13 @@ input[type="submit"] {
 
 /* ===================== MODAL ===================== */
 .modal {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -428,6 +430,10 @@ input[type="submit"] {
   cursor: pointer;
   font-family: "Syne";
   font-weight: 700;
+}
+
+.modal-view-form {
+  display: none;
 }
 
 .modal-view-form h3 {
@@ -507,7 +513,12 @@ input[type="submit"] {
   width: 180px;
 }
 
+#work-image {
+  display: none;
+}
+
 .preview-image {
+  display: none;
   width: 100%;
   height: 200px;
   object-fit: cover;

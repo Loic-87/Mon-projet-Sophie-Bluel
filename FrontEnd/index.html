@@ -19,7 +19,7 @@
 
 
 	<header>
-		<div class="edit-bar" style="display:none;">
+		<div class="edit-bar">
 			<p><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Mode édition</p>
 		</div>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -51,7 +51,7 @@
 		</section>
 
 		<section class="portfolio" id="portfolio">
-			<h2>Mes Projets <button class="edit-btn" style="display:none;">
+			<h2>Mes Projets <button class="edit-btn">
 					<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> modifier
 				</button></h2>
 			<nav>
@@ -74,7 +74,7 @@
 			</form>
 		</section>
 
-		<div class="modal" style="display:none;" role="dialog" aria-modal="true" aria-label="Gestion des projets">
+		<div class="modal" role="dialog" aria-modal="true" aria-label="Gestion des projets">
 			<div class="modal-content">
 				<button class="close-modal" aria-label="Fermer la modal">&times;</button>
 
@@ -87,17 +87,17 @@
 				</div>
 
 				<!-- Vue 2 : formulaire ajout -->
-				<div class="modal-view-form" style="display:none;">
+				<div class="modal-view-form">
 					<button class="back-btn" aria-label="Retour à la galerie">&#8592;</button>
 					<h3>Ajout photo</h3>
 					<form class="add-work-form">
 						<div class="upload-zone">
 							<i class="fa-regular fa-image" aria-hidden="true"></i>
 							<label for="work-image">+ Ajouter photo</label>
-							<input type="file" id="work-image" accept="image/*" style="display:none;">
+							<input type="file" id="work-image" accept="image/*">
 							<p>jpg, png : 4mo max</p>
 						</div>
-						<img class="preview-image" style="display:none;" alt="Prévisualisation de l'image" />
+						<img class="preview-image" alt="Prévisualisation de l'image" />
 						<label for="work-title">Titre</label>
 						<input type="text" id="work-title" required>
 						<label for="work-category">Catégorie</label>

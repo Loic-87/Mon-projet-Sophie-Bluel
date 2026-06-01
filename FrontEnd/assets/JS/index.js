@@ -163,7 +163,6 @@ function setupModal(works, getWorksFn, deleteWorkFn, postWorkFn) {
     viewForm.style.display = "none";
     viewGallery.style.display = "block";
   });
-
   setupAddWorkForm(getWorksFn, postWorkFn, handleDelete);
 }
 
@@ -188,18 +187,27 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
   const imageInput = document.querySelector("#work-image");
   const previewImage = document.querySelector(".preview-image");
   const uploadLabel = document.querySelector(".upload-zone label");
+  const submitBtn = document.querySelector(
+    ".add-work-form input[type='submit']",
+  );
 
+  // Vérifie si les conditions sont remplies pour activer le bouton
+  function checkFormValid() {
+    const title = document.querySelector("#work-title").value.trim();
+    const image = imageInput.files[0];
+    submitBtn.style.backgroundColor = title && image ? "#1d6154" : "#888";
+  }
+
+  // Prévisualisation de l'image
   imageInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (file) {
       if (file.size > 4 * 1024 * 1024) {
         alert("L'image ne doit pas dépasser 4mo");
         imageInput.value = "";
+        checkFormValid();
         return;
       }
-      document.querySelector(
-        ".add-work-form input[type='submit']",
-      ).style.backgroundColor = "#1d6154";
       const reader = new FileReader();
       reader.onload = (e) => {
         previewImage.src = e.target.result;
@@ -208,8 +216,15 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
       };
       reader.readAsDataURL(file);
     }
+    checkFormValid();
   });
 
+  // Vérification du titre en temps réel
+  document
+    .querySelector("#work-title")
+    .addEventListener("input", checkFormValid);
+
+  // Soumission du formulaire
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     try {
@@ -233,9 +248,7 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
       previewImage.style.display = "none";
       uploadLabel.style.display = "inline-block";
       document.querySelector(".upload-zone").style.display = "block";
-      document.querySelector(
-        ".add-work-form input[type='submit']",
-      ).style.backgroundColor = "#888";
+      checkFormValid();
     } catch (error) {
       console.error("setupAddWorkForm :", error);
       alert("Une erreur est survenue lors de l'ajout de la photo");

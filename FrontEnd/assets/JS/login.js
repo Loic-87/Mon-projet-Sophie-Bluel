@@ -11,7 +11,10 @@ export function initLogin(loginUserFn) {
       window.location.href = "index.html";
     } catch (error) {
       console.error("login :", error);
-      alert("Email ou mot de passe incorrect");
+      const errorMessage = document.querySelector(".error-message");
+      errorMessage.textContent = "Email ou mot de passe incorrect";
+      errorMessage.style.color = "red";
+      errorMessage.style.display = "block";
     }
   });
 }

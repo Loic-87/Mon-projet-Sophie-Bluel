@@ -596,6 +596,13 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: none;
+}
+
 /* ===================== FOOTER ===================== */
 footer nav ul {
   display: flex;

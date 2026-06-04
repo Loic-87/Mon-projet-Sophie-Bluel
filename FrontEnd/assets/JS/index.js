@@ -8,13 +8,13 @@ function displayWorks(works) {
     gallery.innerHTML = "";
     works.forEach((work) => {
       const figure = document.createElement("figure");
-      const img = document.createElement("img");
+      const img = Object.assign(document.createElement("img"), {
+        src: work.imageUrl,
+        alt: work.title,
+      });
       const figcaption = document.createElement("figcaption");
-      img.src = work.imageUrl;
-      img.alt = work.title;
       figcaption.textContent = work.title;
-      figure.appendChild(img);
-      figure.appendChild(figcaption);
+      figure.append(img, figcaption);
       gallery.appendChild(figure);
     });
   } catch (error) {
@@ -27,30 +27,33 @@ function displayFilters(categories, works) {
     const filters = document.querySelector(".filters");
     filters.innerHTML = "";
 
+    // Bouton "Tous"
     const allBtn = document.createElement("li");
     allBtn.textContent = "Tous";
     allBtn.classList.add("active-filter");
     allBtn.addEventListener("click", () => {
       displayWorks(works);
-      document
-        .querySelectorAll(".filters li")
-        .forEach((li) => li.classList.remove("active-filter"));
+      filters
+        .querySelectorAll("li")
+        .forEach((filterItem) => filterItem.classList.remove("active-filter"));
       allBtn.classList.add("active-filter");
     });
     filters.appendChild(allBtn);
 
+    // Boutons par catégorie
     categories.forEach((category) => {
-      const li = document.createElement("li");
-      li.textContent = category.name;
-      li.addEventListener("click", () => {
-        const filteredWorks = works.filter((w) => w.categoryId === category.id);
-        displayWorks(filteredWorks);
-        document
-          .querySelectorAll(".filters li")
-          .forEach((el) => el.classList.remove("active-filter"));
-        li.classList.add("active-filter");
+      const categoryBtn = document.createElement("li");
+      categoryBtn.textContent = category.name;
+      categoryBtn.addEventListener("click", () => {
+        displayWorks(works.filter((work) => work.categoryId === category.id));
+        filters
+          .querySelectorAll("li")
+          .forEach((filterItem) =>
+            filterItem.classList.remove("active-filter"),
+          );
+        categoryBtn.classList.add("active-filter");
       });
-      filters.appendChild(li);
+      filters.appendChild(categoryBtn);
     });
   } catch (error) {
     console.error("displayFilters :", error);
@@ -62,23 +65,24 @@ function displayFilters(categories, works) {
 function checkAdmin() {
   try {
     const token = localStorage.getItem("token");
+    if (!token) return;
+
     const editBar = document.querySelector(".edit-bar");
     const editBtn = document.querySelector(".edit-btn");
     const loginBtn = document.querySelector(".login-nav");
     const filters = document.querySelector(".filters");
 
-    if (token) {
-      editBar.style.display = "block";
-      editBtn.style.display = "block";
-      filters.style.display = "none";
-      document.querySelector("header").style.paddingTop = "0";
-      if (loginBtn) {
-        loginBtn.textContent = "logout";
-        loginBtn.addEventListener("click", () => {
-          localStorage.removeItem("token");
-          window.location.href = "index.html";
-        });
-      }
+    editBar.style.display = "block";
+    editBtn.style.display = "block";
+    filters.style.display = "none";
+    document.querySelector("header").style.paddingTop = "0";
+
+    if (loginBtn) {
+      loginBtn.textContent = "logout";
+      loginBtn.addEventListener("click", () => {
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+      });
     }
   } catch (error) {
     console.error("checkAdmin :", error);
@@ -96,17 +100,17 @@ function displayModalGallery(works, handleDelete) {
     const figure = document.createElement("figure");
     figure.style.position = "relative";
 
-    const img = document.createElement("img");
-    img.src = work.imageUrl;
-    img.alt = work.title;
+    const img = Object.assign(document.createElement("img"), {
+      src: work.imageUrl,
+      alt: work.title,
+    });
 
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
     deleteBtn.classList.add("delete-btn");
     deleteBtn.addEventListener("click", () => handleDelete(work.id));
 
-    figure.appendChild(img);
-    figure.appendChild(deleteBtn);
+    figure.append(img, deleteBtn);
     modalGallery.appendChild(figure);
   });
 }
@@ -114,55 +118,51 @@ function displayModalGallery(works, handleDelete) {
 function setupModal(works, getWorksFn, deleteWorkFn, postWorkFn) {
   currentWorks = works;
 
-  const editBtn = document.querySelector(".edit-btn");
   const modal = document.querySelector(".modal");
-  const closeModal = document.querySelector(".close-modal");
-  const addWorkBtn = document.querySelector(".add-work-btn");
-  const backBtn = document.querySelector(".back-btn");
   const viewGallery = document.querySelector(".modal-view-gallery");
   const viewForm = document.querySelector(".modal-view-form");
 
-  async function handleDelete(id) {
+  // Fermeture de la modal
+  function closeModal() {
+    modal.style.display = "none";
+    viewGallery.style.display = "block";
+    viewForm.style.display = "none";
+  }
+
+  // Suppression d'un travail
+  async function handleDelete(workId) {
     try {
-      await deleteWorkFn(id);
-      const updatedWorks = await getWorksFn();
-      currentWorks = updatedWorks;
-      displayWorks(updatedWorks);
-      displayModalGallery(updatedWorks, handleDelete);
+      await deleteWorkFn(workId);
+      currentWorks = await getWorksFn();
+      displayWorks(currentWorks);
+      displayModalGallery(currentWorks, handleDelete);
     } catch (error) {
       console.error("deleteWork :", error);
       alert("Erreur lors de la suppression");
     }
   }
 
-  editBtn.addEventListener("click", () => {
+  document.querySelector(".edit-btn").addEventListener("click", () => {
     modal.style.display = "flex";
     displayModalGallery(currentWorks, handleDelete);
   });
 
-  closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-    viewGallery.style.display = "block";
-    viewForm.style.display = "none";
+  document.querySelector(".close-modal").addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeModal();
   });
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-      viewGallery.style.display = "block";
-      viewForm.style.display = "none";
-    }
-  });
-
-  addWorkBtn.addEventListener("click", () => {
+  document.querySelector(".add-work-btn").addEventListener("click", () => {
     viewGallery.style.display = "none";
     viewForm.style.display = "block";
   });
 
-  backBtn.addEventListener("click", () => {
+  document.querySelector(".back-btn").addEventListener("click", () => {
     viewForm.style.display = "none";
     viewGallery.style.display = "block";
   });
+
   setupAddWorkForm(getWorksFn, postWorkFn, handleDelete);
 }
 
@@ -172,9 +172,10 @@ function fillCategories(categories) {
   try {
     const select = document.querySelector("#work-category");
     categories.forEach((category) => {
-      const option = document.createElement("option");
-      option.value = category.id;
-      option.textContent = category.name;
+      const option = Object.assign(document.createElement("option"), {
+        value: category.id,
+        textContent: category.name,
+      });
       select.appendChild(option);
     });
   } catch (error) {
@@ -187,34 +188,35 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
   const imageInput = document.querySelector("#work-image");
   const previewImage = document.querySelector(".preview-image");
   const uploadLabel = document.querySelector(".upload-zone label");
+  const uploadZone = document.querySelector(".upload-zone");
   const submitBtn = document.querySelector(
     ".add-work-form input[type='submit']",
   );
 
   // Vérifie si les conditions sont remplies pour activer le bouton
   function checkFormValid() {
-    const title = document.querySelector("#work-title").value.trim();
-    const image = imageInput.files[0];
-    submitBtn.style.backgroundColor = title && image ? "#1d6154" : "#888";
+    const titleValue = document.querySelector("#work-title").value.trim();
+    submitBtn.style.backgroundColor =
+      titleValue && imageInput.files[0] ? "#1d6154" : "#888";
   }
 
   // Prévisualisation de l'image
-  imageInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (file.size > 4 * 1024 * 1024) {
+  imageInput.addEventListener("change", (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      if (selectedFile.size > 4 * 1024 * 1024) {
         alert("L'image ne doit pas dépasser 4mo");
         imageInput.value = "";
         checkFormValid();
         return;
       }
       const reader = new FileReader();
-      reader.onload = (e) => {
-        previewImage.src = e.target.result;
+      reader.onload = (event) => {
+        previewImage.src = event.target.result;
         previewImage.style.display = "block";
-        document.querySelector(".upload-zone").style.display = "none";
+        uploadZone.style.display = "none";
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(selectedFile);
     }
     checkFormValid();
   });
@@ -225,17 +227,16 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
     .addEventListener("input", checkFormValid);
 
   // Soumission du formulaire
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
     try {
-      const title = document.querySelector("#work-title").value;
-      const category = document.querySelector("#work-category").value;
-      const image = imageInput.files[0];
-
       const formData = new FormData();
-      formData.append("image", image);
-      formData.append("title", title);
-      formData.append("category", category);
+      formData.append("image", imageInput.files[0]);
+      formData.append("title", document.querySelector("#work-title").value);
+      formData.append(
+        "category",
+        document.querySelector("#work-category").value,
+      );
 
       const newWork = await postWorkFn(formData);
       currentWorks.push(newWork);
@@ -247,7 +248,7 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
       form.reset();
       previewImage.style.display = "none";
       uploadLabel.style.display = "inline-block";
-      document.querySelector(".upload-zone").style.display = "block";
+      uploadZone.style.display = "block";
       checkFormValid();
     } catch (error) {
       console.error("setupAddWorkForm :", error);

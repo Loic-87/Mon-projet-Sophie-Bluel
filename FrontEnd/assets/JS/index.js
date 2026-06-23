@@ -1,17 +1,16 @@
-let currentWorks = [];
+import { getWorks, getCategories, deleteWork, postWork } from "./api.js";
 
 // --- Galerie ---
 
 function displayWorks(works) {
   try {
     const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = "";
+    gallery.replaceChildren();
     works.forEach((work) => {
       const figure = document.createElement("figure");
-      const img = Object.assign(document.createElement("img"), {
-        src: work.imageUrl,
-        alt: work.title,
-      });
+      const img = document.createElement("img");
+      img.src = work.imageUrl;
+      img.alt = work.title;
       const figcaption = document.createElement("figcaption");
       figcaption.textContent = work.title;
       figure.append(img, figcaption);
@@ -25,7 +24,7 @@ function displayWorks(works) {
 function displayFilters(categories, works) {
   try {
     const filters = document.querySelector(".filters");
-    filters.innerHTML = "";
+    filters.replaceChildren();
 
     // Bouton "Tous"
     const allBtn = document.createElement("li");
@@ -71,11 +70,12 @@ function checkAdmin() {
     const editBtn = document.querySelector(".edit-btn");
     const loginBtn = document.querySelector(".login-nav");
     const filters = document.querySelector(".filters");
+    const header = document.querySelector("header");
 
-    editBar.style.display = "block";
-    editBtn.style.display = "block";
-    filters.style.display = "none";
-    document.querySelector("header").style.paddingTop = "0";
+    editBar.classList.add("visible");
+    editBtn.classList.add("visible");
+    filters.classList.add("hidden");
+    header.classList.add("admin");
 
     if (loginBtn) {
       loginBtn.textContent = "logout";
@@ -91,79 +91,84 @@ function checkAdmin() {
 
 // --- Modal ---
 
+// Crée une carte projet dans la galerie de la modal
+function createWorkCard(work, handleDelete) {
+  const figure = document.createElement("figure");
+
+  const img = document.createElement("img");
+  img.src = work.imageUrl;
+  img.alt = work.title;
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("delete-btn");
+  const icon = document.createElement("i");
+  icon.classList.add("fa-solid", "fa-trash-can");
+  deleteBtn.appendChild(icon);
+  deleteBtn.addEventListener("click", () => handleDelete(work.id));
+
+  figure.append(img, deleteBtn);
+  return figure;
+}
+
 function displayModalGallery(works, handleDelete) {
-  currentWorks = works;
   const modalGallery = document.querySelector(".modal-gallery");
-  modalGallery.innerHTML = "";
-
+  modalGallery.replaceChildren();
   works.forEach((work) => {
-    const figure = document.createElement("figure");
-    figure.style.position = "relative";
-
-    const img = Object.assign(document.createElement("img"), {
-      src: work.imageUrl,
-      alt: work.title,
-    });
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-    deleteBtn.classList.add("delete-btn");
-    deleteBtn.addEventListener("click", () => handleDelete(work.id));
-
-    figure.append(img, deleteBtn);
-    modalGallery.appendChild(figure);
+    modalGallery.appendChild(createWorkCard(work, handleDelete));
   });
 }
 
-function setupModal(works, getWorksFn, deleteWorkFn, postWorkFn) {
-  currentWorks = works;
-
+function setupModal(works, deleteWorkFn, postWorkFn) {
   const modal = document.querySelector(".modal");
   const viewGallery = document.querySelector(".modal-view-gallery");
   const viewForm = document.querySelector(".modal-view-form");
+  const editBtn = document.querySelector(".edit-btn");
+  const closeModalBtn = document.querySelector(".close-modal");
+  const addWorkBtn = document.querySelector(".add-work-btn");
+  const backBtn = document.querySelector(".back-btn");
 
   // Fermeture de la modal
   function closeModal() {
-    modal.style.display = "none";
-    viewGallery.style.display = "block";
-    viewForm.style.display = "none";
+    modal.classList.remove("open");
+    viewGallery.classList.remove("hidden");
+    viewForm.classList.remove("open");
   }
 
   // Suppression d'un travail
   async function handleDelete(workId) {
     try {
       await deleteWorkFn(workId);
-      currentWorks = await getWorksFn();
-      displayWorks(currentWorks);
-      displayModalGallery(currentWorks, handleDelete);
+      const updatedWorks = await getWorks();
+      displayWorks(updatedWorks);
+      displayModalGallery(updatedWorks, handleDelete);
     } catch (error) {
       console.error("deleteWork :", error);
       alert("Erreur lors de la suppression");
     }
   }
 
-  document.querySelector(".edit-btn").addEventListener("click", () => {
-    modal.style.display = "flex";
-    displayModalGallery(currentWorks, handleDelete);
+  editBtn.addEventListener("click", () => {
+    modal.classList.add("open");
+    displayModalGallery(works, handleDelete);
   });
 
-  document.querySelector(".close-modal").addEventListener("click", closeModal);
+  closeModalBtn.addEventListener("click", closeModal);
 
   modal.addEventListener("click", (event) => {
     if (event.target === modal) closeModal();
   });
 
-  document.querySelector(".add-work-btn").addEventListener("click", () => {
-    viewGallery.style.display = "none";
-    viewForm.style.display = "block";
+  addWorkBtn.addEventListener("click", () => {
+    viewGallery.classList.add("hidden");
+    viewForm.classList.add("open");
   });
 
-  document.querySelector(".back-btn").addEventListener("click", () => {
-    viewForm.style.display = "none";
-    viewGallery.style.display = "block";
+  backBtn.addEventListener("click", () => {
+    viewForm.classList.remove("open");
+    viewGallery.classList.remove("hidden");
   });
 
-  setupAddWorkForm(getWorksFn, postWorkFn, handleDelete);
+  setupAddWorkForm(works, postWorkFn, handleDelete);
 }
 
 // --- Formulaire ajout ---
@@ -172,10 +177,9 @@ function fillCategories(categories) {
   try {
     const select = document.querySelector("#work-category");
     categories.forEach((category) => {
-      const option = Object.assign(document.createElement("option"), {
-        value: category.id,
-        textContent: category.name,
-      });
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
       select.appendChild(option);
     });
   } catch (error) {
@@ -183,21 +187,37 @@ function fillCategories(categories) {
   }
 }
 
-function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
+// Réinitialise le formulaire après un ajout réussi
+function resetForm(form, previewImage, uploadZone, submitBtn) {
+  const modalViewForm = document.querySelector(".modal-view-form");
+  const modalViewGallery = document.querySelector(".modal-view-gallery");
+
+  form.reset();
+  previewImage.classList.remove("visible");
+  uploadZone.classList.remove("hidden");
+  submitBtn.classList.remove("active");
+  modalViewForm.classList.remove("open");
+  modalViewGallery.classList.remove("hidden");
+}
+
+function setupAddWorkForm(works, postWorkFn, handleDelete) {
   const form = document.querySelector(".add-work-form");
   const imageInput = document.querySelector("#work-image");
   const previewImage = document.querySelector(".preview-image");
-  const uploadLabel = document.querySelector(".upload-zone label");
   const uploadZone = document.querySelector(".upload-zone");
   const submitBtn = document.querySelector(
     ".add-work-form input[type='submit']",
   );
+  const titleInput = document.querySelector("#work-title");
+  const categoryInput = document.querySelector("#work-category");
 
   // Vérifie si les conditions sont remplies pour activer le bouton
   function checkFormValid() {
-    const titleValue = document.querySelector("#work-title").value.trim();
-    submitBtn.style.backgroundColor =
-      titleValue && imageInput.files[0] ? "#1d6154" : "#888";
+    if (titleInput.value.trim() && imageInput.files[0]) {
+      submitBtn.classList.add("active");
+    } else {
+      submitBtn.classList.remove("active");
+    }
   }
 
   // Prévisualisation de l'image
@@ -213,8 +233,8 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
       const reader = new FileReader();
       reader.onload = (event) => {
         previewImage.src = event.target.result;
-        previewImage.style.display = "block";
-        uploadZone.style.display = "none";
+        previewImage.classList.add("visible");
+        uploadZone.classList.add("hidden");
       };
       reader.readAsDataURL(selectedFile);
     }
@@ -222,9 +242,7 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
   });
 
   // Vérification du titre en temps réel
-  document
-    .querySelector("#work-title")
-    .addEventListener("input", checkFormValid);
+  titleInput.addEventListener("input", checkFormValid);
 
   // Soumission du formulaire
   form.addEventListener("submit", async (event) => {
@@ -232,24 +250,14 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
     try {
       const formData = new FormData();
       formData.append("image", imageInput.files[0]);
-      formData.append("title", document.querySelector("#work-title").value);
-      formData.append(
-        "category",
-        document.querySelector("#work-category").value,
-      );
+      formData.append("title", titleInput.value);
+      formData.append("category", categoryInput.value);
 
       const newWork = await postWorkFn(formData);
-      currentWorks.push(newWork);
-      displayWorks(currentWorks);
-      displayModalGallery(currentWorks, handleDelete);
-
-      document.querySelector(".modal-view-form").style.display = "none";
-      document.querySelector(".modal-view-gallery").style.display = "block";
-      form.reset();
-      previewImage.style.display = "none";
-      uploadLabel.style.display = "inline-block";
-      uploadZone.style.display = "block";
-      checkFormValid();
+      works.push(newWork);
+      displayWorks(works);
+      displayModalGallery(works, handleDelete);
+      resetForm(form, previewImage, uploadZone, submitBtn);
     } catch (error) {
       console.error("setupAddWorkForm :", error);
       alert("Une erreur est survenue lors de l'ajout de la photo");
@@ -259,17 +267,20 @@ function setupAddWorkForm(getWorksFn, postWorkFn, handleDelete) {
 
 // --- Init ---
 
-export function initIndex(
-  works,
-  categories,
-  getWorksFn,
-  deleteWorkFn,
-  postWorkFn,
-) {
-  currentWorks = works;
-  displayWorks(works);
-  displayFilters(categories, works);
-  checkAdmin();
-  fillCategories(categories);
-  setupModal(works, getWorksFn, deleteWorkFn, postWorkFn);
+async function initIndex() {
+  try {
+    const [works, categories] = await Promise.all([
+      getWorks(),
+      getCategories(),
+    ]);
+    displayWorks(works);
+    displayFilters(categories, works);
+    checkAdmin();
+    fillCategories(categories);
+    setupModal(works, deleteWork, postWork);
+  } catch (error) {
+    console.error("initIndex :", error);
+  }
 }
+
+initIndex();

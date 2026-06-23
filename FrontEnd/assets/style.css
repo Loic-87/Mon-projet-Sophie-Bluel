@@ -154,6 +154,10 @@ header {
   padding: 30px 200px 30px;
 }
 
+header.admin {
+  padding-top: 0;
+}
+
 h1 {
   display: flex;
   flex-direction: column;
@@ -203,6 +207,10 @@ header nav img {
   padding: 10px;
   width: calc(100% + 400px);
   margin: 0 -200px 30px;
+}
+
+.edit-bar.visible {
+  display: block;
 }
 
 /* ===================== SECTIONS ===================== */
@@ -274,6 +282,10 @@ h2 {
   justify-content: center;
 }
 
+.filters.hidden {
+  display: none;
+}
+
 .filters li {
   cursor: pointer;
   padding: 10px 20px;
@@ -305,6 +317,10 @@ h2 {
   left: calc(50% + 120px);
   top: 50%;
   transform: translateY(-50%);
+}
+
+.edit-btn.visible {
+  display: block;
 }
 
 /* ===================== CONTACT ===================== */
@@ -372,6 +388,10 @@ input[type="submit"] {
   z-index: 999;
 }
 
+.modal.open {
+  display: flex;
+}
+
 .modal-content {
   background-color: white;
   padding: 30px;
@@ -407,6 +427,10 @@ input[type="submit"] {
   object-fit: cover;
 }
 
+.modal-gallery figure {
+  position: relative;
+}
+
 .delete-btn {
   position: absolute;
   top: 5px;
@@ -438,6 +462,14 @@ input[type="submit"] {
   display: none;
 }
 
+.modal-view-form.open {
+  display: block;
+}
+
+.modal-view-gallery.hidden {
+  display: none;
+}
+
 .modal-view-form h3 {
   text-align: center;
   margin-bottom: 20px;
@@ -461,6 +493,10 @@ input[type="submit"] {
   text-align: center;
   margin-bottom: 20px;
   cursor: pointer;
+}
+
+.upload-zone.hidden {
+  display: none;
 }
 
 .upload-zone i {
@@ -515,6 +551,10 @@ input[type="submit"] {
   width: 180px;
 }
 
+.add-work-form input[type="submit"].active {
+  background-color: #1d6154;
+}
+
 #work-image {
   display: none;
 }
@@ -526,6 +566,10 @@ input[type="submit"] {
   object-fit: cover;
   border-radius: 5px;
   margin-bottom: 10px;
+}
+
+.preview-image.visible {
+  display: block;
 }
 
 /* ===================== LOGIN ===================== */
@@ -601,6 +645,10 @@ input[type="submit"] {
   font-size: 12px;
   margin-top: 5px;
   display: none;
+}
+
+.error-message.visible {
+  display: block;
 }
 
 /* ===================== FOOTER ===================== */

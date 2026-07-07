@@ -138,9 +138,10 @@ function setupModal(works, deleteWorkFn, postWorkFn) {
   async function handleDelete(workId) {
     try {
       await deleteWorkFn(workId);
-      const updatedWorks = await getWorks();
-      displayWorks(updatedWorks);
-      displayModalGallery(updatedWorks, handleDelete);
+      const index = works.findIndex((work) => work.id === workId);
+      if (index !== -1) works.splice(index, 1);
+      displayWorks(works);
+      displayModalGallery(works, handleDelete);
     } catch (error) {
       console.error("deleteWork :", error);
       alert("Erreur lors de la suppression");

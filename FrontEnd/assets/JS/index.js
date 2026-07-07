@@ -214,11 +214,13 @@ function setupAddWorkForm(works, postWorkFn, handleDelete) {
 
   // Vérifie si les conditions sont remplies pour activer le bouton
   function checkFormValid() {
-    const valide =
-      titleInput.value.trim() && imageInput.files[0] && categoryInput.value;
-    submitBtn.classList.toggle("active", valide);
-    submitBtn.disabled = !valide;
+    if (titleInput.value.trim() && imageInput.files[0]) {
+      submitBtn.classList.add("active");
+    } else {
+      submitBtn.classList.remove("active");
+    }
   }
+
   // Prévisualisation de l'image
   imageInput.addEventListener("change", (event) => {
     const selectedFile = event.target.files[0];
